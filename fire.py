@@ -7,7 +7,7 @@ with open("configs", 'r') as filename:
 
 args = {}
 for line in lines:
-    args[line.split("=", 1)[0]] = line.split("=", 1)[1]
+    args[line.split("=", 1)[0]] = line.split("=", 1)[1].strip()
 
 host = args["host"]
 user = args["user"]
