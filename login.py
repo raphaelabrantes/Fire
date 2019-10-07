@@ -27,4 +27,4 @@ def login(host, user, passwd, db):
         else:
             print("Usuario ou senha incorretos")
 
-    return (mydb, cursor)
+    return mydb, cursor

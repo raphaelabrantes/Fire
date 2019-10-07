@@ -34,7 +34,7 @@ def remove_ports(cursor, mydb):
     show_ports(cursor, mydb)
     port = input("Port: ")
     string = "ufw delete allow from {} to any port {}"
-    query1 = "SELECT ip FROM Portas WHERE port=%s"
+    query1 = "SELECT INET_NTOA(ip) FROM Portas WHERE port=%s"
     query2 = "DELETE FROM Portas WHERE port=%s"
     cursor.execute(query1, (port,))
     select = cursor.fetchall()
@@ -43,7 +43,7 @@ def remove_ports(cursor, mydb):
     for ip in select:
         command = string.format(ip, port)
         reply = os.popen(command)
-        print(reply)
+        print(list(reply)[0])
 
 
 def remove_port_ip(cursor, mydb, query=None):

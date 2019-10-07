@@ -16,7 +16,3 @@ db = args["db"]
 
 mydb, cursor = login(host, user, passwd, db)
 first_menu(cursor, mydb)
-
-
-
-
