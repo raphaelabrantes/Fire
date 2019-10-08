@@ -33,14 +33,12 @@ def menu_users(cursor, mydb):
         "5": remove_user_ip,
     }
     mensagem = "Choose one option\n1 Show all users\n2 Search User Ips\n3 Add User\n4 Remove User by name\n5 Remove " \
-               "User by ip "
+               "User by ip\nOnly the first char will count\n"
     while True:
         print("Menu/User/")
-        op = input(mensagem)
-        if not op:
-            op = "7"
-        if 6 > int(op) > 0:
-            switch.get(op)(cursor, mydb)
+        op = ord(input(mensagem)[0])
+        if 48 < op < 54:
+            switch.get(chr(op))(cursor, mydb)
         else:
             break
 
@@ -54,13 +52,11 @@ def menu_portas(cursor, mydb):
         "5": remove_port_ip,
     }
     mensagem = "Escolha uma opção\n1Show all ports\n2 Show personalized search\n3 Add port\n4 Remove port by IP\n5 " \
-               "Remove IPs by Port\n "
+               "Remove IPs by Port\nOnly the first char will count\n"
     while True:
         print("Menu/Ports")
-        op = input(mensagem)
-        if not op:
-            op = "7"
-        if 6 > int(op) > 0:
-            switch.get(op)(cursor, mydb)
+        op = ord(input(mensagem)[0])
+        if 48 < op < 54:
+            switch.get(chr(op))(cursor, mydb)
         else:
             break
