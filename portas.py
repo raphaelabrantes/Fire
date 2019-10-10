@@ -3,10 +3,10 @@ import os
 
 
 def add_port(cursor, mydb):
+    query = "INSERT INTO Portas(ip, port) VALUES(INET_ATON(%s), %s)"
     show_ports(cursor, mydb)
     ip = input("IP: ")
     port = input("Port: ")
-    query = "INSERT INTO Portas(ip, port) VALUES(INET_ATON(%s), %s)"
     try:
         cursor.execute(query, (ip, port))
         mydb.commit()
@@ -31,14 +31,14 @@ def show_ports(cursor, mydb):
 
 
 def remove_ports(cursor, mydb):
+    query_s = "SELECT INET_NTOA(ip) FROM Portas WHERE port=%s"
+    query_d = "DELETE FROM Portas WHERE port=%s"
     show_ports(cursor, mydb)
     port = input("Port: ")
     string = "ufw delete allow from {} to any port {}"
-    query1 = "SELECT INET_NTOA(ip) FROM Portas WHERE port=%s"
-    query2 = "DELETE FROM Portas WHERE port=%s"
-    cursor.execute(query1, (port,))
+    cursor.execute(query_s, (port,))
     select = cursor.fetchall()
-    cursor.execute(query2, (port,))
+    cursor.execute(query_d, (port,))
     mydb.commit()
     for ip in select:
         command = string.format(ip, port)
@@ -47,24 +47,34 @@ def remove_ports(cursor, mydb):
 
 
 def remove_port_ip(cursor, mydb, query=None):
-    if query:
-        ip = query[0]
-        port = query[1]
-    else:
-        show_ports(cursor, mydb)
-        ip = input("Ip: ")
-        port = input("Port: ")
+    query = "DELETE FROM Portas WHERE ip=INET_ATON(%s) AND port=%s"
+    show_ports(cursor, mydb)
+    ip = input("Ip: ")
+    port = input("Port: ")
     command = "ufw delete allow from {} to any port {}".format(ip, port)
     os.system(command)
-    query = "DELETE FROM Portas WHERE ip=INET_ATON(%s) AND port=%s"
     cursor.execute(query, (ip, port))
     mydb.commit()
 
 
+def remove_total_ip(cursor, mydb, ip=None):
+    query_s = "SELECT port FROM Portas WHERE ip=%s"
+    query_d = "DELETE FROM Portas WHERE ip=INET_ATON(%s)"
+    if not ip:
+        ip = input("Ip: ")
+    string = "ufw delete allow from {} to any port {}"
+    cursor.execute(query_s, (ip))
+    reply = cursor.fetchall()
+    for port in reply:
+        command = string.format(ip, port)
+        os.system(command)
+    cursor.execute(query_d,(ip))
+    mydb.commit()
+
 def search_port(cursor, mydb):
+    query = "SELECT port, INET_NTOA(ip) as IP FROM Portas WHERE port=%s OR ip=INET_ATON(%s)"
     port = input("Port: ")
     ip = input("Ip: ")
-    query = "SELECT port, INET_NTOA(ip) as IP FROM Portas WHERE port=%s OR ip=INET_ATON(%s)"
     cursor.execute(query, (port, ip))
     reply = cursor.fetchall()
     for port, ip in reply:
