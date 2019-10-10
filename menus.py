@@ -50,9 +50,10 @@ def menu_portas(cursor, mydb):
         "3": add_port,
         "4": remove_ports,
         "5": remove_port_ip,
+        "6": remove_total_ip,
     }
-    mensagem = "Escolha uma opção\n1Show all ports\n2 Show personalized search\n3 Add port\n4 Remove port by IP\n5 " \
-               "Remove IPs by Port\nOnly the first char will count\n"
+    mensagem = "Escolha uma opção\n1Show all ports\n2 Show personalized search\n3 Add port\n4 Remove same ports\n5 " \
+               "Remove using ip and port\n6 Remove using only ip\nOnly the first char will count\n"
     while True:
         print("Menu/Ports")
         op = ord(input(mensagem)[0])
