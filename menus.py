@@ -36,7 +36,10 @@ def menu_users(cursor, mydb):
                "User by ip\nOnly the first char will count\n"
     while True:
         print("Menu/User/")
-        op = ord(input(mensagem)[0])
+        op = input(mensagem)
+        if len(op) < 1:
+            break
+        op = ord(op[0])
         if 48 < op < 54:
             switch.get(chr(op))(cursor, mydb)
         else:
@@ -56,7 +59,10 @@ def menu_portas(cursor, mydb):
                "Remove using ip and port\n6 Remove using only ip\nOnly the first char will count\n"
     while True:
         print("Menu/Ports")
-        op = ord(input(mensagem)[0])
+        op = input(mensagem)
+        if len(op) < 1:
+            break
+        op = ord(op[0])
         if 48 < op < 55:
             switch.get(chr(op))(cursor, mydb)
         else:
