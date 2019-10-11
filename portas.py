@@ -52,14 +52,15 @@ def remove_port_ip(cursor, mydb, query=None):
     ip = input("Ip: ")
     port = input("Port: ")
     command = "ufw delete allow from {} to any port {}".format(ip, port)
-    os.system(command)
+    reply = os.popen(command)
+    print(reply[0])
     cursor.execute(query, (ip, port))
     mydb.commit()
 
 
 def remove_total_ip(cursor, mydb, ip=None):
     show_ports(cursor, mydb)
-    query_s = "SELECT port FROM Portas WHERE ip=%s"
+    query_s = "SELECT port FROM Portas WHERE ip=INET_ATON(%s)"
     query_d = "DELETE FROM Portas WHERE ip=INET_ATON(%s)"
     if not ip:
         ip = input("Ip: ")
@@ -68,7 +69,8 @@ def remove_total_ip(cursor, mydb, ip=None):
     reply = cursor.fetchall()
     for port in reply:
         command = string.format(ip, port)
-        os.system(command)
+        reply = list(os.popen(command))
+        print(reply[0])
     cursor.execute(query_d, (ip,))
     mydb.commit()
 
