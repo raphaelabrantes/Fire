@@ -57,7 +57,7 @@ def menu_portas(cursor, mydb):
     while True:
         print("Menu/Ports")
         op = ord(input(mensagem)[0])
-        if 48 < op < 54:
+        if 48 < op < 55:
             switch.get(chr(op))(cursor, mydb)
         else:
             break
