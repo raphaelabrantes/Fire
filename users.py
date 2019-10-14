@@ -26,7 +26,7 @@ def remove_user_n(cursor, mydb):
     cursor.execute(query_s, (user, ))
     reply = cursor.fetchall()
     for ip in reply:
-        remove_total_ip(cursor, mydb, ip)
+        remove_total_ip(cursor, mydb, ip[0])
     cursor.execute(query_d, (user,))
     mydb.commit()
 
