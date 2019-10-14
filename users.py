@@ -20,7 +20,8 @@ def show_users(cursor, mydb):
 
 
 def remove_user_n(cursor, mydb):
-    query_s = "SELECT Portas.ip FROM Portas INNER JOIN Usuarios ON Portas.ip=Usuarios.ip WHERE Usuarios.name=%s LIMIT 1"
+    query_s = "SELECT INET6_NTOA(Portas.ip) FROM Portas INNER JOIN Usuarios ON Portas.ip=Usuarios.ip WHERE " \
+              "Usuarios.name=%s LIMIT 1 "
     query_d = "DELETE FROM Usuarios WHERE name=%s"
     user = input("Name: ")
     cursor.execute(query_s, (user, ))
