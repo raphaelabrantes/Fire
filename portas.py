@@ -68,9 +68,9 @@ def remove_total_ip(cursor, mydb, ip=None):
     cursor.execute(query_s, (ip,))
     reply = cursor.fetchall()
     for port in reply:
-        command = string.format(ip, port)
+        command = string.format(ip, port[0])
         reply = list(os.popen(command))
-        print(reply[0])
+        print(reply)
     cursor.execute(query_d, (ip,))
     mydb.commit()
 

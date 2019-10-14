@@ -20,13 +20,13 @@ def show_users(cursor, mydb):
 
 
 def remove_user_n(cursor, mydb):
-    query_s = "SELECT INET6_NTOA(Portas.ip) FROM Portas INNER JOIN Usuarios ON Portas.ip=Usuarios.ip WHERE " \
-              "Usuarios.name=%s LIMIT 1 "
+    query_s = "SELECT INET_NTOA(ip) FROM Usuarios WHERE name=%s"
     query_d = "DELETE FROM Usuarios WHERE name=%s"
     user = input("Name: ")
     cursor.execute(query_s, (user, ))
     reply = cursor.fetchall()
     for ip in reply:
+        print(ip)
         remove_total_ip(cursor, mydb, ip[0])
     cursor.execute(query_d, (user,))
     mydb.commit()
