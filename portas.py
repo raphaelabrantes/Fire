@@ -26,8 +26,8 @@ def show_ports(cursor, mydb):
     query = "SELECT INET_NTOA(Portas.ip), port, Portas.date_add , name FROM Portas INNER JOIN Usuarios U on Portas.ip = U.ip"
     cursor.execute(query)
     reply = cursor.fetchall()
-    for ip, port, data in reply:
-        print("%s\t\t%s\t%s" % (ip, port, data.strftime("%m/%d/%Y, %H:%M:%S")))
+    for ip, port, data, name in reply:
+        print("%s\t\t%s\t%s\t%s" % (ip, port, data.strftime("%m/%d/%Y, %H:%M:%S"), name))
 
 
 def remove_ports(cursor, mydb):
