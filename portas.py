@@ -41,9 +41,9 @@ def remove_ports(cursor, mydb):
     cursor.execute(query_d, (port,))
     mydb.commit()
     for ip in select:
-        command = string.format(ip, port)
-        reply = os.popen(command)
-        print(list(reply)[0])
+        command = string.format(ip[0], port)
+        reply = list(os.popen(command))
+        print(reply)
 
 
 def remove_port_ip(cursor, mydb, query=None):
