@@ -35,6 +35,7 @@ def remove_user_n(cursor, mydb):
 def remove_user_ip(cursor, mydb):
     query = "DELETE FROM Usuarios WHERE ip=INET_ATON(%s)"
     ip = input("Ip: ")
+    remove_total_ip(cursor, mydb, ip)
     cursor.execute(query, (ip,))
     mydb.commit()
 
