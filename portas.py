@@ -23,7 +23,7 @@ def add_port(cursor, mydb):
 
 
 def show_ports(cursor, mydb):
-    query = "SELECT INET_NTOA(ip), port, date_add FROM Portas"
+    query = "SELECT INET_NTOA(Portas.ip), port, Portas.date_add , name FROM Portas INNER JOIN Usuarios U on Portas.ip = U.ip"
     cursor.execute(query)
     reply = cursor.fetchall()
     for ip, port, data in reply:
