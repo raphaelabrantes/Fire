@@ -52,7 +52,7 @@ def remove_port_ip(cursor, mydb, query=None):
     ip = input("Ip: ")
     port = input("Port: ")
     command = "ufw delete allow from {} to any port {}".format(ip, port)
-    reply = os.popen(command)
+    reply = list(os.popen(command))
     print(reply[0])
     cursor.execute(query, (ip, port))
     mydb.commit()
