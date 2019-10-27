@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
@@ -14,6 +15,12 @@ def log(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('/')
+            return redirect('../auth/',)
 
-    return HttpResponse("Nao vai da")
+        else:
+            context = {
+                'fail': True
+            }
+            return render(request, 'home/index.html', context=context)
+    return render(request, 'home/index.html')
+
