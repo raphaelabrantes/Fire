@@ -11,8 +11,8 @@ for line in lines:
 
 host = args["host"]
 user = args["user"]
-passwd = args["passwd"]
-db = args["db"]
+passwd = args["passwordd"]
+db = args["database"]
 
 mydb, cursor = login(host, user, passwd, db)
 first_menu(cursor, mydb)
