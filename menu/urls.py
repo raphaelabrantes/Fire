@@ -2,5 +2,7 @@ from django.urls import path
 
 from . import views
 urlpatterns = [
-    path('', views.suck, name=""),
+    path('', views.suck),
+    path('logout', views.logout_click),
+
 ]
