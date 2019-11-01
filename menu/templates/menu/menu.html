@@ -6,9 +6,29 @@
 </head>
 <body>
 <div>
+    {% for user in users %}
+    {% for info in user %}
+    {{ info }}
+    {% endfor %}
+    <br>
+    {% endfor %}
     <form action="logout">
         <input type="submit" value="Logout"/>
-    </form>
+    </form><br>
+</div>
+<div>
+    {% for name in adms %}
+    {{ name }}
+    {% endfor %}
+ <form action="add_adm" method="post">
+     {% csrf_token %}
+    {% for field in forms %}
+    {{ field.errors }}
+     {{ field.name }}
+     {{ field }}<br>
+     {% endfor %}
+    <input type="submit" value="Add Adm">
+ </form>
 </div>
 </body>
 </html>
