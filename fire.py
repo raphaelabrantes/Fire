@@ -7,11 +7,13 @@ with open("configs", 'r') as filename:
 
 args = {}
 for line in lines:
+    if line.strip() == '[client]':
+        continue
     args[line.split("=", 1)[0]] = line.split("=", 1)[1].strip()
 
 host = args["host"]
 user = args["user"]
-passwd = args["passwordd"]
+passwd = args["password"]
 db = args["database"]
 
 mydb, cursor = login(host, user, passwd, db)
