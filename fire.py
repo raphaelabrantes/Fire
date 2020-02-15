@@ -15,6 +15,5 @@ host = args["host"]
 user = args["user"]
 passwd = args["password"]
 db = args["database"]
-
 mydb, cursor = login(host, user, passwd, db)
 first_menu(cursor, mydb)
