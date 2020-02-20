@@ -10,4 +10,4 @@ class Command(BaseCommand):
         password = getpass.getpass(prompt='Password: ', stream=None)
         if authenticate(request=None, username=user, password=password):
             self.stdout.write(self.style.SUCCESS("Login OK"))
-            start()
+            start(self)
