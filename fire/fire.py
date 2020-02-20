@@ -2,7 +2,7 @@ from fire.login import *
 from fire.menus import *
 from django.conf import settings
 
-def start():
+def start(obj):
     with open(os.path.join(settings.BASE_DIR, 'configs'), 'r') as filename:
         lines = filename.readlines()
 
@@ -18,4 +18,4 @@ def start():
     db = args["database"]
 
     mydb, cursor = login(host, user, passwd, db)
-    first_menu(cursor, mydb)
+    first_menu(cursor, mydb, obj)
