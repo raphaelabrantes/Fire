@@ -1,5 +1,4 @@
-import mysql.connector
-from portas import remove_total_ip
+from fire.portas import remove_total_ip
 
 
 def add_user(cursor, mydb):

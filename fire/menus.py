@@ -1,6 +1,5 @@
-import os
-from users import *
-from portas import *
+from fire.users import *
+from fire.portas import *
 
 
 def first_menu(cursor, mydb):
