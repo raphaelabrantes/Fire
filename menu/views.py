@@ -1,20 +1,19 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from .models import Usuarios, Administrador
-from .forms import Admin_form
+from django.contrib.auth.models import User
+from .models import Usuarios
+from .forms import Admin_form, User_form
 from ipaddress import IPv4Address
-from hashlib import md5
 
 @login_required(login_url='/home')
 def suck(request):
     users = Usuarios.objects.order_by('-date_add')
-    adms = Administrador.objects.order_by('-date')
+    adms = User.objects.order_by('-date_joined')
     list_adms = []
     list_users = []
     for x in adms:
-        name = x.name
+        name = x.username
         list_adms.append(name)
     for i in users:
         ip = str(IPv4Address(i.ip))
@@ -22,8 +21,9 @@ def suck(request):
         list_users.append([name, ip])
     context = {
         'users': list_users,
-        'forms': Admin_form(),
+        'admin_forms': Admin_form(),
         'adms': list_adms,
+        'user_forms': User_form(),
     }
     return render(request, 'menu/menu.html', context=context)
 
@@ -41,8 +41,14 @@ def add_adm(request):
         user = User.objects.create_superuser(username=username,
                                  email=email,
                                  password=password)
-        hexx = md5(password.encode()).hexdigest()
-        adm = Administrador(name=username, password=hexx)
         user.save()
-        adm.save()
+    return redirect('../')
+
+@login_required(login_url='/home')
+def add_user(request):
+    if 'name' in request.POST and 'ip' in request.POST:
+        name = request.POST['name']
+        ip = int(IPv4Address(str(request.POST['ip'])))
+        new_user = Usuarios(name=name, ip=ip)
+        new_user.save()
     return redirect('../')

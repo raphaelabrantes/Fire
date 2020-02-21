@@ -6,29 +6,45 @@
 </head>
 <body>
 <div>
+    Users: <br>
     {% for user in users %}
     {% for info in user %}
     {{ info }}
     {% endfor %}
-    <br>
+    <p></p>
     {% endfor %}
     <form action="logout">
         <input type="submit" value="Logout"/>
     </form><br>
 </div>
 <div>
+    Admins: <br>
     {% for name in adms %}
     {{ name }}
     {% endfor %}
+    <p></p>
  <form action="add_adm" method="post">
+     add Admin <br>
      {% csrf_token %}
-    {% for field in forms %}
+    {% for field in admin_forms %}
     {{ field.errors }}
      {{ field.name }}
      {{ field }}<br>
      {% endfor %}
-    <input type="submit" value="Add Adm">
+    <input type="submit" value="Confirm">
  </form>
+</div>
+<p></p>
+<div>
+    <form action="add_user" method="post">
+     add User <br>
+     {% csrf_token %}
+    {% for field in user_forms %}
+    {{ field.errors }}
+     {{ field.name }}
+     {{ field }}<br>
+     {% endfor %}
+    <input type="submit" value="Confirm">
 </div>
 </body>
 </html>
