@@ -1,13 +1,6 @@
 from django.db import models
 from datetime import datetime
 
-class Administrador(models.Model):
-    name = models.CharField(max_length=255, primary_key=True)
-    password = models.CharField(max_length=255)
-    date = models.DateTimeField(default=datetime.now)
-    class Meta:
-        db_table = 'Administrador'
-
 class Usuarios(models.Model):
     name = models.CharField(max_length=255)
     ip = models.PositiveIntegerField(primary_key=True)
