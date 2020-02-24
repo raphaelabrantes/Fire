@@ -38,6 +38,7 @@ def menu_users(cursor, mydb, obj):
         obj.stdout.write("Menu/User/")
         obj.stdout.write(mensagem)
         op = input()
+        os.system("clear")
         if len(op) < 1:
             break
         op = ord(op[0])
@@ -62,6 +63,7 @@ def menu_portas(cursor, mydb, obj):
         obj.stdout.write("Menu/Ports")
         obj.stdout.write(mensagem)
         op = input()
+        os.system("clear")
         if len(op) < 1:
             break
         op = ord(op[0])
