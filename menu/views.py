@@ -12,17 +12,12 @@ def suck(request):
     users = Usuarios.objects.order_by('-date_add')
     adms = User.objects.order_by('-date_joined')
     portas = Portas.objects.order_by('-date_add')
-    list_adms = []
+    list_adms = [x.username for x in adms]
     list_users = []
     list_ports = []
-    uniq_usr =[]
-    for x in adms:
-        name = x.username
-        list_adms.append(name)
     for i in users:
         ip = str(IPv4Address(i.ip))
         name = i.name
-        uniq_usr.append(name)
         list_users.append([name, ip])
     for p in portas:
         port = p.port
@@ -30,7 +25,7 @@ def suck(request):
         ip = str(IPv4Address(p.ip.ip))
         name = p.ip.name
         list_ports.append([name, port, ip, date_add])
-    uniq_usr = list(set(uniq_usr))
+    uniq_usr = list(set([name for name, ip in list_users]))
     context = {
         'users': list_users,
         'admin_forms': Admin_form(),
@@ -89,4 +84,11 @@ def delete_user(request):
 
 @login_required(login_url='/home')
 def add_port(request):
-    pass
+    if 'ip_select' in request.POST and 'port' in request.POST:
+        ip = request.POST['ip_select']
+        port = request.POST['port']
+        new_port = Portas(ip=Usuarios.objects.get(ip=ip), port=port)
+        command = "ufw allow from {} to any port {} ".format(str(IPv4Address(int(ip))), port)
+        system(command)
+        new_port.save()
+    return redirect('../')

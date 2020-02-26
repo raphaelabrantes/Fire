@@ -34,6 +34,32 @@
     <input type="submit" value="Confirm">
  </form>
 </div>
+<div>
+    Portas: <br>
+    <table style="width:50%">
+    <tr>
+        <th>Nome</th><th>port</th><th>ip</th><th>date_add</th>
+    </tr>
+    {% for porta in portas %}
+    <tr>
+    {% for info in porta %}
+    <th>{{info}}</th>
+    {% endfor %}
+    </tr>
+        {% endfor %}
+    </table>
+</div>
+<div><form action="add_port" method="post">
+    Add Port<br>
+    {% csrf_token %}
+    {% for field in port_form %}
+    {{ field.errors }}
+     {{ field.name }}
+     {{ field }}<br>
+     {% endfor %}
+    <input type="submit" value="Confirm">
+    </form>
+</div>
 <p></p>
 <div>
     <form action="add_user" method="post">
@@ -60,5 +86,17 @@
             <input type="submit" value="Confirm"><br>
         </form>
     </div>
+<div>
+    Delete User
+    <form action="delete_user" method="post">
+            {% csrf_token %}
+        <select name="user_name">
+            {% for name in user_u %}
+        <option value={{name}}>{{ name}}</option>
+            {% endfor %}
+        </select>
+            <input type="submit" value="Confirm"><br>
+        </form>
+</div>
 </body>
 </html>
