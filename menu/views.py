@@ -52,3 +52,10 @@ def add_user(request):
         new_user = Usuarios(name=name, ip=ip)
         new_user.save()
     return redirect('../')
+
+@login_required(login_url='/home')
+def delete_admin(request):
+    if 'admin_name' in request.POST:
+        admin_object = User.objects.filter(username=request.POST['admin_name'])
+        admin_object.delete()
+    return redirect('../')

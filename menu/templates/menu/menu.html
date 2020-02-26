@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Fire</title>
 </head>
 <body>
 <div>
@@ -44,7 +44,21 @@
      {{ field.name }}
      {{ field }}<br>
      {% endfor %}
-    <input type="submit" value="Confirm">
+        <input type="submit" value="Confirm"><br>
+    </form>
 </div>
+<br>
+    <div>
+        Delete Admin
+        <form action="delete_admin" method="post">
+            {% csrf_token %}
+        <select name="admin_name">
+            {% for name in adms %}
+        <option value={{name}}>{{name}}</option>
+            {% endfor %}
+        </select>
+            <input type="submit" value="Confirm"><br>
+        </form>
+    </div>
 </body>
 </html>
