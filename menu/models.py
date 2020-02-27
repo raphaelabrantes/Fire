@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from ipaddress import IPv4Address
 
 class Usuarios(models.Model):
     name = models.CharField(max_length=255)
@@ -8,6 +9,8 @@ class Usuarios(models.Model):
     class Meta:
         db_table = 'Usuarios'
 
+    def __str__(self):
+        return "%s" % str(IPv4Address(self.ip))
 class Portas(models.Model):
     ip = models.ForeignKey('Usuarios', models.DO_NOTHING, db_column='ip')
     port = models.IntegerField()
