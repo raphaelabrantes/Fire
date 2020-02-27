@@ -13,5 +13,5 @@ class User_form(forms.Form):
 
 class Port_forms(forms.Form):
     ip_list = [(user.pk, IPv4Address(user.pk)) for user in Usuarios.objects.all()]
-    ip_select = forms.ChoiceField(choices=ip_list)
+    ip_select = forms.ModelChoiceField(queryset=Usuarios.objects.all(), empty_label=None,)
     port = forms.IntegerField(max_value=65535, min_value=0)
