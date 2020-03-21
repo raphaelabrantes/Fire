@@ -92,3 +92,7 @@ def add_port(request):
         system(command)
         new_port.save()
     return redirect('../')
+
+@login_required(login_url='/home')
+def delete_port(request):
+    pass
